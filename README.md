@@ -73,33 +73,33 @@ Proyek ini disusun mengikuti alur metodologi standar industri **CRISP-DM (Cross-
 
 
 ### 1. Business Understanding
-* **Tujuan Bisnis:** Membantu BPJS Kesehatan dalam mengidentifikasi tipologi pasien TB agar dapat mendistribusikan layanan, edukasi, dan intervensi rujukan secara efisien[cite: 1].
-* **Sasaran Teknis:** Mengelompokkan peserta BPJS ke dalam klaster perilaku menggunakan **K-Means Clustering** dan membangun sistem pendukung keputusan interaktif berbasis web[cite: 1].
+* **Tujuan Bisnis:** Membantu BPJS Kesehatan dalam mengidentifikasi tipologi pasien TB agar dapat mendistribusikan layanan, edukasi, dan intervensi rujukan secara efisien.
+* **Sasaran Teknis:** Mengelompokkan peserta BPJS ke dalam klaster perilaku menggunakan **K-Means Clustering** dan membangun sistem pendukung keputusan interaktif berbasis web.
 
 ### 2. Data Understanding & Exploration
-Analisis dilakukan terhadap tiga subset data utama BPJS Kesehatan[cite: 1]:
-* **Data Kepesertaan:** Karakteristik demografis (tanggal lahir, jenis kelamin, domisili, faskes terdaftar) periode 2019, 2020, dan 2021[cite: 1].
-* **Pelayanan FKRTL:** Data rujukan tingkat lanjut lebih dari 1,58 juta baris mencakup diagnosis masuk/primer ICD-10 (A15–A19), tipe rumah sakit, dan status pulang[cite: 1].
-* **Pelayanan FKTP Non-Kapitasi:** Data tindakan dan kunjungan fasilitas tingkat pertama[cite: 1].
-* **Korelasi Heatmap:** Analisis keterkaitan antar variabel numerik dan biaya medis[cite: 1].
+Analisis dilakukan terhadap tiga subset data utama BPJS Kesehatan:
+* **Data Kepesertaan:** Karakteristik demografis (tanggal lahir, jenis kelamin, domisili, faskes terdaftar) periode 2019, 2020, dan 2021.
+* **Pelayanan FKRTL:** Data rujukan tingkat lanjut lebih dari 1,58 juta baris mencakup diagnosis masuk/primer ICD-10 (A15–A19), tipe rumah sakit, dan status pulang.
+* **Pelayanan FKTP Non-Kapitasi:** Data tindakan dan kunjungan fasilitas tingkat pertama.
+* **Korelasi Heatmap:** Analisis keterkaitan antar variabel numerik dan biaya medis.
 
 ### 3. Data Preparation & Feature Engineering
-* **Pembersihan Data:** Menangani *missing values* menggunakan `SimpleImputer` (strategi mean dan mode) serta menghapus duplikasi data[cite: 1].
+* **Pembersihan Data:** Menangani *missing values* menggunakan `SimpleImputer` (strategi mean dan mode) serta menghapus duplikasi data.
 * **Feature Construction:**
-  * Ekstraksi fitur `Usia` dari tanggal lahir peserta (`PSTV03`)[cite: 1].
-  * Perhitungan frekuensi kunjungan: `Frekuensi_Kunjungan_FKRTL` dan `Frekuensi_Kunjungan_FKTP`[cite: 1].
-  * Pembentukan label kategori usia (`Muda`, `Dewasa`, `Lansia`)[cite: 1].
-* **Integrasi & Encoding:** Menggabungkan ketiga tabel menggunakan relasi *inner join* berdasarkan `PSTV01` (Nomor Peserta) dan melakukan konversi fitur menggunakan `LabelEncoder`[cite: 1].
-* **Standardisasi Skala:** Normalisasi fitur numerik menggunakan `StandardScaler` untuk menyamakan bobot jarak Euclidean[cite: 1].
+  * Ekstraksi fitur `Usia` dari tanggal lahir peserta (`PSTV03`).
+  * Perhitungan frekuensi kunjungan: `Frekuensi_Kunjungan_FKRTL` dan `Frekuensi_Kunjungan_FKTP`.
+  * Pembentukan label kategori usia (`Muda`, `Dewasa`, `Lansia`).
+* **Integrasi & Encoding:** Menggabungkan ketiga tabel menggunakan relasi *inner join* berdasarkan `PSTV01` (Nomor Peserta) dan melakukan konversi fitur menggunakan `LabelEncoder`.
+* **Standardisasi Skala:** Normalisasi fitur numerik menggunakan `StandardScaler` untuk menyamakan bobot jarak Euclidean.
 
 ### 4. Modeling & Clustering
-* **Metode Elbow:** Menguji variasi nilai $K$ (1 hingga 10) terhadap *inertia*, menemukan titik lengkungan optimal pada **$K = 3$**[cite: 1].
-* **Model K-Means:** Melatih model klastering pada $K=3$[cite: 1].
-* **Reduksi Dimensi (PCA):** Memproyeksikan fitur multi-dimensi ke dalam 2 komponen utama (`PCA1` dan `PCA2`) untuk visualisasi scatter plot interaktif[cite: 1].
+* **Metode Elbow:** Menguji variasi nilai K (1 hingga 10) terhadap *inertia*, menemukan titik lengkungan optimal pada **K = 3**.
+* **Model K-Means:** Melatih model klastering pada K=3.
+* **Reduksi Dimensi (PCA):** Memproyeksikan fitur multi-dimensi ke dalam 2 komponen utama (`PCA1` dan `PCA2`) untuk visualisasi scatter plot interaktif.
 
 ### 5. Model Evaluation
-* **Silhouette Coefficient:** Menghasilkan skor evaluasi kualitas pemisahan klaster internal ($SC = 0.2745$)[cite: 1].
-* **Relevansi Kebijakan:** Validasi domain medis untuk memastikan setiap klaster menghasilkan tindakan penanganan yang masuk akal bagi pengambil kebijakan[cite: 1].
+* **Silhouette Coefficient:** Menghasilkan skor evaluasi kualitas pemisahan klaster internal (SC = 0.2745).
+* **Relevansi Kebijakan:** Validasi domain medis untuk memastikan setiap klaster menghasilkan tindakan penanganan yang masuk akal bagi pengambil kebijakan.
 
 ---
 
@@ -107,22 +107,25 @@ Analisis dilakukan terhadap tiga subset data utama BPJS Kesehatan[cite: 1]:
 
 | Klaster | Karakteristik Pasien | Rekomendasi Strategi Kebijakan |
 | :---: | :--- | :--- |
-| **Klaster 0** *(Kuning)* | Pasien dengan frekuensi akses fasilitas kesehatan rendah dan risiko keparahan tahap awal[cite: 1]. | **Edukasi Preventif:** Sosialisasi penyuluhan pola hidup sehat, edukasi gejala dini TB, dan penyediaan fasilitas skrining berkala di faskes tingkat primer[cite: 1]. |
-| **Klaster 1** *(Turquoise)* | Pasien usia dewasa dengan frekuensi akses ke rumah sakit rujukan (FKRTL) tinggi[cite: 1]. | **Manajemen Perawatan Lanjutan:** Pemantauan intensif kepatuhan minum obat jangka panjang, pencegahan resistensi obat (MDR-TB), serta optimalisasi alokasi poli rujukan[cite: 1]. |
-| **Klaster 2** *(Ungu)* | Pasien yang jarang berkunjung ke faskes, namun memerlukan perhatian medis intensif saat datang[cite: 1]. | **Penjangkauan Proaktif:** Skrining aktif (*case-finding*) berbasis komunitas lokal guna mendeteksi penyakit lebih awal sebelum mencapai fase darurat[cite: 1]. |
+| **Klaster 0** *(Kuning)* | Pasien dengan frekuensi akses fasilitas kesehatan rendah dan risiko keparahan tahap awal. 
+| **Edukasi Preventif:** Sosialisasi penyuluhan pola hidup sehat, edukasi gejala dini TB, dan penyediaan fasilitas skrining berkala di faskes tingkat primer. |
+| **Klaster 1** *(Turquoise)* | Pasien usia dewasa dengan frekuensi akses ke rumah sakit rujukan (FKRTL) tinggi. 
+| **Manajemen Perawatan Lanjutan:** Pemantauan intensif kepatuhan minum obat jangka panjang, pencegahan resistensi obat (MDR-TB), serta optimalisasi alokasi poli rujukan. |
+| **Klaster 2** *(Ungu)* | Pasien yang jarang berkunjung ke faskes, namun memerlukan perhatian medis intensif saat datang. 
+| **Penjangkauan Proaktif:** Skrining aktif (*case-finding*) berbasis komunitas lokal guna mendeteksi penyakit lebih awal sebelum mencapai fase darurat. |
 
 ---
 
 ## 🌐 Web Application & Deployment
 
-Model K-Means dan *scaler* disimpan dalam format serial (`.pkl`) dan diintegrasikan ke dalam antarmuka web berbasis **Flask** untuk inferensi data pasien secara *real-time*[cite: 1].
+Model K-Means dan *scaler* disimpan dalam format serial (`.pkl`) dan diintegrasikan ke dalam antarmuka web berbasis **Flask** untuk inferensi data pasien secara *real-time*.
 
 ### Fitur Input Aplikasi:
-1. `Usia` (Usia Pasien)[cite: 1]
-2. `PSTV05` (Jenis Kelamin Terkode)[cite: 1]
-3. `PSTV09` (Provinsi Domisili Terkode)[cite: 1]
-4. `Frekuensi_Kunjungan_FKRTL` (Total kunjungan rumah sakit)[cite: 1]
-5. `Frekuensi_Kunjungan_FKTP` (Total kunjungan faskes primer)[cite: 1]
+1. `Usia` (Usia Pasien)
+2. `PSTV05` (Jenis Kelamin Terkode)
+3. `PSTV09` (Provinsi Domisili Terkode)
+4. `Frekuensi_Kunjungan_FKRTL` (Total kunjungan rumah sakit)
+5. `Frekuensi_Kunjungan_FKTP` (Total kunjungan faskes primer)
 
 ---
 
